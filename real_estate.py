@@ -40,15 +40,21 @@ y = year['Total_Sale_Date'].count()
 z = year['Total_sale_Price'].mean()
 
 y.plot()
+plt.ylabel('Price in Dollars')
+plt.title('Number of Residential Home Sales per Year')
+plt.legend()
 plt.show()
 
 z.plot()
+plt.ylabel('Price in Dollars')
+plt.title('Average Price of Residential Homes per Year')
+plt.legend()
 plt.show()
 
 # Function to analyze data by zipcode
 
-def cityFunc(zip):
-        input_zip = zip
+def zipFunc(zip):
+        input_zip = int(zip)
         filtered_data_zip_pre = df[df['PHYSICAL_ZIP_CODE']==input_zip]
         filtered_data_zip_pre = filtered_data_zip_pre.groupby('Year')
         filtered_data_zip = filtered_data_zip_pre['Total_sale_Price'].mean()
@@ -56,11 +62,10 @@ def cityFunc(zip):
         z.plot()
         plt.show()
 
-# Function to analyze data by street
+# # Function to analyze data by street
 
 def streetFunc(street, prefix=' '):
         if prefix == ' ':
-            input_street = input('Please enter the street you would like to receive data for: ').upper()
             filtered_data_pre = df[df["Street_Name"]==input_street]
             filtered_data_pre = filtered_data_pre.groupby('Year')
             filtered_data = filtered_data_pre['Total_sale_Price'].mean()
@@ -68,17 +73,15 @@ def streetFunc(street, prefix=' '):
             z.plot()
             plt.show()
         else:
-            input_prefix = input('Please enter the street prefix you would like to receive data for: (W, N, SE, etc.) ').upper()
-            filtered_data_prefix = df[df["Street_Prefix"]==input_prefix]
-            input_street = input('Please enter the street you would like to receive data for: ').upper()
-            filtered_data_pre = filtered_data_prefix[filtered_data_prefix["Street_Name"]==input_street]
+            filtered_data_prefix = df[df["Street_Prefix"]==prefix]
+            filtered_data_pre = filtered_data_prefix[filtered_data_prefix["Street_Name"]==street]
             filtered_data_pre = filtered_data_pre.groupby('Year')
             filtered_data = filtered_data_pre['Total_sale_Price'].mean()
             filtered_data.plot()
             z.plot()
             plt.show()
 
-# Function to analyze data by city
+# # Function to analyze data by city
 
 def cityFunc(city):
         input_city = city
