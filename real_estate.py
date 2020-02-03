@@ -45,39 +45,62 @@ plt.show()
 z.plot()
 plt.show()
 
-# Function to analyze data
+# Function to analyze data by zipcode
 
-def propAnalysis(field_name):
-    input_yn = input('Would you like to view data by ' + field_name.lower() + '? (Y/N) ').upper()
-    try:
-        if input_yn == 'Y' or input_yn == 'YES':
-            inputvar = int(input('Please enter the ' + field_name.lower() + ' you would like to receive data for: '))
-            filtered_data_pre = df[df['PHYSICAL_ZIP_CODE']==inputvar]
-            filtered_data_pre = filtered_data_pre.groupby('Year')
-            filtered_data = filtered_data_pre['Total_sale_Price'].mean()
-            filtered_data.plot()
-            z.plot()
-            plt.show()
-            print('YOY Change is: ')
-            var_assess_price = filtered_data_pre['Total_Assessed_Valuation'].mean()
-            var_chart = filtered_data_pre['Total_sale_Price'].mean() / var_assess_price
-            print(var_chart.pct_change(periods=2))
-            
-            var_assess = input('Would you like to view home price vs. assessed home price? (Y/N) ').upper()
-            if var_assess == 'Y' or var_assess == 'YES':
-                var_assess_price = filtered_data_pre['Total_Assessed_Valuation'].mean()
-                print('Total Sale Price / Total Valuation Price: (Over 1 means the owner is paying above valuation, under 1 means the owner is paying below valuation.) ')
-                var_chart = filtered_data_pre['Total_sale_Price'].mean() / var_assess_price
-                print(var_chart)
-        else:
-            pass
-    except:
-        print('That is not valid. Please try again with a valid entry.')
+input_yn = input('Would you like to view data by zipcode? (Y/N)').upper()
 
-# Charting by zip code, street, and city data
+if input_yn == 'Y' or input_yn == 'YES':
+    input_zip = int(input('Please enter the zipcode you would like to receive data for:'))
+    filtered_data_zip_pre = df[df['PHYSICAL_ZIP_CODE']==input_zip]
+    filtered_data_zip_pre = filtered_data_zip_pre.groupby('Year')
+    filtered_data_zip = filtered_data_zip_pre['Total_sale_Price'].mean()
+    filtered_data_zip.plot()
+    z.plot()
+    
+    # zip_assess = input('Would you like to view home price vs. assessed home price? (Y/N) ').upper()
+    # if zip_assess == 'Y' or zip_assess == 'YES':
+    #     zip_assess_price = filtered_data_zip_pre['Total_Assessed_Valuation'].mean()
+    #     print('Total Sale Price / Total Valuation Price: (Over 1 means the owner is paying above valuation, under 1 means the owner is paying below valuation.) ')
+    #     zip_chart = filtered_data_zip_pre['Total_sale_Price'].mean() / zip_assess_price
+    #     print(zip_chart)
+    #     print('YOY Change is: ')
+    #     print(zip_chart.pct_change(periods=2))
+else:
+    pass
 
-propAnalysis('PHYSICAL_ZIP_CODE')
+# Function to analyze data by street
 
-propAnalysis("Street_Name")
+street_yn = input('Would you like to view data by street? (Y/N) ').upper()
 
-propAnalysis('PHYSICAL_CITY')
+if street_yn == 'Y' or street_yn == 'YES':
+    prefix_yn = input('Is there a street prefix? (Y/N ) ').upper()
+    if prefix_yn == 'Y' or prefix_yn == 'YES':
+        input_prefix = input('Please enter the street prefix you would like to receive data for: (W, N, SE, etc.) ').upper()
+        filtered_data_prefix = df[df["Street_Prefix"]==input_prefix]
+    else:
+        pass
+    input_street = input('Please enter the street you would like to receive data for: ').upper()
+    filtered_data_pre = df[df["Street_Name"]==input_street]
+    filtered_data_pre = filtered_data_pre.groupby('Year')
+    filtered_data = filtered_data_pre['Total_sale_Price'].mean()
+    filtered_data.plot()
+    z.plot()
+    
+
+else:
+    pass
+
+# Function to analyze data by city
+
+city_yn = input('Would you like to view data by city? (Y/N)').upper()
+
+if city_yn == 'Y' or input_yn == 'YES':
+    input_city = input('Please enter the city you would like to receive data for:').upper()
+    filtered_data_city_pre = df[df['PHYSICAL_CITY']==input_city]
+    filtered_data_city_pre = filtered_data_city_pre.groupby('Year')
+    filtered_data_city = filtered_data_city_pre['Total_sale_Price'].mean()
+    filtered_data_city.plot()
+    z.plot()
+
+else:
+    pass
