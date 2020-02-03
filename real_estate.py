@@ -56,6 +56,7 @@ if input_yn == 'Y' or input_yn == 'YES':
     filtered_data_zip = filtered_data_zip_pre['Total_sale_Price'].mean()
     filtered_data_zip.plot()
     z.plot()
+    plt.show()
     
     # zip_assess = input('Would you like to view home price vs. assessed home price? (Y/N) ').upper()
     # if zip_assess == 'Y' or zip_assess == 'YES':
@@ -85,6 +86,7 @@ if street_yn == 'Y' or street_yn == 'YES':
     filtered_data = filtered_data_pre['Total_sale_Price'].mean()
     filtered_data.plot()
     z.plot()
+    plt.show()
     
 
 else:
@@ -101,6 +103,7 @@ if city_yn == 'Y' or input_yn == 'YES':
     filtered_data_city = filtered_data_city_pre['Total_sale_Price'].mean()
     filtered_data_city.plot()
     z.plot()
+    plt.show()
 
 else:
     pass
