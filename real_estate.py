@@ -47,63 +47,71 @@ plt.show()
 
 # Function to analyze data by zipcode
 
-input_yn = input('Would you like to view data by zipcode? (Y/N)').upper()
+def cityFunc:
+    input_yn = input('Would you like to view data by zipcode? (Y/N)').upper()
 
-if input_yn == 'Y' or input_yn == 'YES':
-    input_zip = int(input('Please enter the zipcode you would like to receive data for:'))
-    filtered_data_zip_pre = df[df['PHYSICAL_ZIP_CODE']==input_zip]
-    filtered_data_zip_pre = filtered_data_zip_pre.groupby('Year')
-    filtered_data_zip = filtered_data_zip_pre['Total_sale_Price'].mean()
-    filtered_data_zip.plot()
-    z.plot()
-    plt.show()
-    
-    # zip_assess = input('Would you like to view home price vs. assessed home price? (Y/N) ').upper()
-    # if zip_assess == 'Y' or zip_assess == 'YES':
-    #     zip_assess_price = filtered_data_zip_pre['Total_Assessed_Valuation'].mean()
-    #     print('Total Sale Price / Total Valuation Price: (Over 1 means the owner is paying above valuation, under 1 means the owner is paying below valuation.) ')
-    #     zip_chart = filtered_data_zip_pre['Total_sale_Price'].mean() / zip_assess_price
-    #     print(zip_chart)
-    #     print('YOY Change is: ')
-    #     print(zip_chart.pct_change(periods=2))
-else:
-    pass
+    if input_yn == 'Y' or input_yn == 'YES':
+        input_zip = int(input('Please enter the zipcode you would like to receive data for:'))
+        filtered_data_zip_pre = df[df['PHYSICAL_ZIP_CODE']==input_zip]
+        filtered_data_zip_pre = filtered_data_zip_pre.groupby('Year')
+        filtered_data_zip = filtered_data_zip_pre['Total_sale_Price'].mean()
+        filtered_data_zip.plot()
+        z.plot()
+        plt.show()
+        
+        # zip_assess = input('Would you like to view home price vs. assessed home price? (Y/N) ').upper()
+        # if zip_assess == 'Y' or zip_assess == 'YES':
+        #     zip_assess_price = filtered_data_zip_pre['Total_Assessed_Valuation'].mean()
+        #     print('Total Sale Price / Total Valuation Price: (Over 1 means the owner is paying above valuation, under 1 means the owner is paying below valuation.) ')
+        #     zip_chart = filtered_data_zip_pre['Total_sale_Price'].mean() / zip_assess_price
+        #     print(zip_chart)
+        #     print('YOY Change is: ')
+        #     print(zip_chart.pct_change(periods=2))
+    else:
+        pass
 
 # Function to analyze data by street
 
-street_yn = input('Would you like to view data by street? (Y/N) ').upper()
+def streetFunc:
+    street_yn = input('Would you like to view data by street? (Y/N) ').upper()
 
-if street_yn == 'Y' or street_yn == 'YES':
-    prefix_yn = input('Is there a street prefix? (Y/N ) ').upper()
-    if prefix_yn == 'Y' or prefix_yn == 'YES':
-        input_prefix = input('Please enter the street prefix you would like to receive data for: (W, N, SE, etc.) ').upper()
-        filtered_data_prefix = df[df["Street_Prefix"]==input_prefix]
+    if street_yn == 'Y' or street_yn == 'YES':
+        prefix_yn = input('Is there a street prefix? (Y/N ) ').upper()
+        if prefix_yn == 'Y' or prefix_yn == 'YES':
+            input_prefix = input('Please enter the street prefix you would like to receive data for: (W, N, SE, etc.) ').upper()
+            filtered_data_prefix = df[df["Street_Prefix"]==input_prefix]
+            input_street = input('Please enter the street you would like to receive data for: ').upper()
+            filtered_data_pre = filtered_data_prefix[filtered_data_prefix["Street_Name"]==input_street]
+            filtered_data_pre = filtered_data_pre.groupby('Year')
+            filtered_data = filtered_data_pre['Total_sale_Price'].mean()
+            filtered_data.plot()
+            z.plot()
+            plt.show()
+        else:
+            input_street = input('Please enter the street you would like to receive data for: ').upper()
+            filtered_data_pre = df[df["Street_Name"]==input_street]
+            filtered_data_pre = filtered_data_pre.groupby('Year')
+            filtered_data = filtered_data_pre['Total_sale_Price'].mean()
+            filtered_data.plot()
+            z.plot()
+            plt.show()
+
     else:
         pass
-    input_street = input('Please enter the street you would like to receive data for: ').upper()
-    filtered_data_pre = df[df["Street_Name"]==input_street]
-    filtered_data_pre = filtered_data_pre.groupby('Year')
-    filtered_data = filtered_data_pre['Total_sale_Price'].mean()
-    filtered_data.plot()
-    z.plot()
-    plt.show()
-    
-
-else:
-    pass
 
 # Function to analyze data by city
 
-city_yn = input('Would you like to view data by city? (Y/N)').upper()
+def cityFunc:
+    city_yn = input('Would you like to view data by city? (Y/N)').upper()
 
-if city_yn == 'Y' or input_yn == 'YES':
-    input_city = input('Please enter the city you would like to receive data for:').upper()
-    filtered_data_city_pre = df[df['PHYSICAL_CITY']==input_city]
-    filtered_data_city_pre = filtered_data_city_pre.groupby('Year')
-    filtered_data_city = filtered_data_city_pre['Total_sale_Price'].mean()
-    filtered_data_city.plot()
-    z.plot()
-    plt.show()
+    if city_yn == 'Y' or input_yn == 'YES':
+        input_city = input('Please enter the city you would like to receive data for:').upper()
+        filtered_data_city_pre = df[df['PHYSICAL_CITY']==input_city]
+        filtered_data_city_pre = filtered_data_city_pre.groupby('Year')
+        filtered_data_city = filtered_data_city_pre['Total_sale_Price'].mean()
+        filtered_data_city.plot()
+        z.plot()
+        plt.show()
 
-else:
-    pass
+    else:
+        pass
