@@ -58,7 +58,7 @@ def cityFunc(zip):
 
 # Function to analyze data by street
 
-def streetFunc(prefix=' ', street):
+def streetFunc(street, prefix=' '):
         if prefix == ' ':
             input_street = input('Please enter the street you would like to receive data for: ').upper()
             filtered_data_pre = df[df["Street_Name"]==input_street]
