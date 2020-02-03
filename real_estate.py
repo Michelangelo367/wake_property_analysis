@@ -60,6 +60,9 @@ def zipFunc(zip):
         filtered_data_zip = filtered_data_zip_pre['Total_sale_Price'].mean()
         filtered_data_zip.plot()
         z.plot()
+        plt.ylabel('Price in Dollars')
+        plt.title('Average Price of Residential Homes per Year in ' + str(input_zip))
+        plt.legend()
         plt.show()
 
 # # Function to analyze data by street
@@ -72,6 +75,9 @@ def streetFunc(street, prefix=' '):
         filtered_data = filtered_data_pre['Total_sale_Price'].mean()
         filtered_data.plot()
         z.plot()
+        plt.ylabel('Price in Dollars')
+        plt.title('Average Price of Residential Homes per Year in ' + input_street)
+        plt.legend()
         plt.show()
     else:
         filtered_data_prefix = df[df["Street_Prefix"]==prefix.upper()]
@@ -80,6 +86,9 @@ def streetFunc(street, prefix=' '):
         filtered_data = filtered_data_pre['Total_sale_Price'].mean()
         filtered_data.plot()
         z.plot()
+        plt.ylabel('Price in Dollars')
+        plt.title('Average Price of Residential Homes per Year in ' + prefix + ' ' + input_street)
+        plt.legend()
         plt.show()
 
 # # Function to analyze data by city
@@ -91,4 +100,7 @@ def cityFunc(city):
         filtered_data_city = filtered_data_city_pre['Total_sale_Price'].mean()
         filtered_data_city.plot()
         z.plot()
+        plt.ylabel('Price in Dollars')
+        plt.title('Average Price of Residential Homes per Year in ' + input_city)
+        plt.legend()
         plt.show()
