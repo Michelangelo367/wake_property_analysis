@@ -65,26 +65,27 @@ def zipFunc(zip):
 # # Function to analyze data by street
 
 def streetFunc(street, prefix=' '):
-        if prefix == ' ':
-            filtered_data_pre = df[df["Street_Name"]==input_street]
-            filtered_data_pre = filtered_data_pre.groupby('Year')
-            filtered_data = filtered_data_pre['Total_sale_Price'].mean()
-            filtered_data.plot()
-            z.plot()
-            plt.show()
-        else:
-            filtered_data_prefix = df[df["Street_Prefix"]==prefix]
-            filtered_data_pre = filtered_data_prefix[filtered_data_prefix["Street_Name"]==street]
-            filtered_data_pre = filtered_data_pre.groupby('Year')
-            filtered_data = filtered_data_pre['Total_sale_Price'].mean()
-            filtered_data.plot()
-            z.plot()
-            plt.show()
+    input_street = street.upper()
+    if prefix == ' ':
+        filtered_data_pre = df[df["Street_Name"]==input_street]
+        filtered_data_pre = filtered_data_pre.groupby('Year')
+        filtered_data = filtered_data_pre['Total_sale_Price'].mean()
+        filtered_data.plot()
+        z.plot()
+        plt.show()
+    else:
+        filtered_data_prefix = df[df["Street_Prefix"]==prefix.upper()]
+        filtered_data_pre = filtered_data_prefix[filtered_data_prefix["Street_Name"]==input_street]
+        filtered_data_pre = filtered_data_pre.groupby('Year')
+        filtered_data = filtered_data_pre['Total_sale_Price'].mean()
+        filtered_data.plot()
+        z.plot()
+        plt.show()
 
 # # Function to analyze data by city
 
 def cityFunc(city):
-        input_city = city
+        input_city = city.upper()
         filtered_data_city_pre = df[df['PHYSICAL_CITY']==input_city]
         filtered_data_city_pre = filtered_data_city_pre.groupby('Year')
         filtered_data_city = filtered_data_city_pre['Total_sale_Price'].mean()
