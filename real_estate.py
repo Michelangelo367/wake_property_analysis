@@ -58,14 +58,14 @@ def zipFunc(zip):
         filtered_data_zip_pre = df[df['PHYSICAL_ZIP_CODE']==input_zip]
         filtered_data_zip_pre = filtered_data_zip_pre.groupby('Year')
         filtered_data_zip = filtered_data_zip_pre['Total_sale_Price'].mean()
-        filtered_data_zip.plot()
-        z.plot()
+        filtered_data_zip.plot(label='Price by Zip Code')
+        z.plot(label = 'Price by County')
         plt.ylabel('Price in Dollars')
         plt.title('Average Price of Residential Homes per Year in ' + str(input_zip))
         plt.legend()
         plt.show()
 
-# # Function to analyze data by street
+# Function to analyze data by street
 
 def streetFunc(street, prefix=' '):
     input_street = street.upper()
@@ -74,9 +74,9 @@ def streetFunc(street, prefix=' '):
         filtered_data_pre = filtered_data_pre.groupby('Year')
         filtered_data = filtered_data_pre['Total_sale_Price'].mean()
         filtered_data.plot()
-        z.plot()
+        z.plot(label='Price by Street')
         plt.ylabel('Price in Dollars')
-        plt.title('Average Price of Residential Homes per Year in ' + input_street)
+        plt.title('Average Price of Residential Homes per Year in ' + input_street.title())
         plt.legend()
         plt.show()
     else:
@@ -84,23 +84,23 @@ def streetFunc(street, prefix=' '):
         filtered_data_pre = filtered_data_prefix[filtered_data_prefix["Street_Name"]==input_street]
         filtered_data_pre = filtered_data_pre.groupby('Year')
         filtered_data = filtered_data_pre['Total_sale_Price'].mean()
-        filtered_data.plot()
-        z.plot()
+        filtered_data.plot(label='Price by Street')
+        z.plot(label = 'Price by County')
         plt.ylabel('Price in Dollars')
-        plt.title('Average Price of Residential Homes per Year in ' + prefix + ' ' + input_street)
+        plt.title('Average Price of Residential Homes per Year in ' + prefix.upper() + ' ' + input_street.title())
         plt.legend()
         plt.show()
 
-# # Function to analyze data by city
+# Function to analyze data by city
 
 def cityFunc(city):
         input_city = city.upper()
         filtered_data_city_pre = df[df['PHYSICAL_CITY']==input_city]
         filtered_data_city_pre = filtered_data_city_pre.groupby('Year')
         filtered_data_city = filtered_data_city_pre['Total_sale_Price'].mean()
-        filtered_data_city.plot()
-        z.plot()
+        filtered_data_city.plot(label="City Price")
+        z.plot(label = 'Price by County')
         plt.ylabel('Price in Dollars')
-        plt.title('Average Price of Residential Homes per Year in ' + input_city)
+        plt.title('Average Price of Residential Homes per Year in ' + input_city.title())
         plt.legend()
         plt.show()
