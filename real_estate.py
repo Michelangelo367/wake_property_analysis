@@ -118,6 +118,6 @@ def cityFunc(city):
         plt.title('Average Price of Residential Homes per Year in ' + input_city.title())
         plt.legend()
         plt.show()
-        citycoords = filtered_data.tolist()
+        citycoords = filtered_data_city.tolist()
         citycoords = set(citycoords)
         cleaned_city = [x for x in citycoords if str(x) != 'nan']
