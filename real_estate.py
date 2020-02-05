@@ -33,28 +33,30 @@ df['Total_Assessed_Valuation'] = df['Assessed_Building_Value'] + df['Assessed_La
 df['Year'] = df['Total_Sale_Date'].dt.year
 df = df[df["Land_classification"]=='R']
 year = df.groupby(['Year'])
-print(year['Total_Assessed_Valuation'].mean())
+# print(year['Total_Assessed_Valuation'].mean())
 
-# Chart of initial data
+# # Chart of initial data
 y = year['Total_Sale_Date'].count()
 z = year['Total_sale_Price'].mean()
 
-y.plot()
-plt.ylabel('Price in Dollars')
-plt.title('Number of Residential Home Sales per Year')
-plt.legend()
-plt.show()
+# y.plot()
+# plt.ylabel('Price in Dollars')
+# plt.title('Number of Residential Home Sales per Year')
+# plt.legend()
+# plt.show()
 
-z.plot()
-plt.ylabel('Price in Dollars')
-plt.title('Average Price of Residential Homes per Year')
-plt.legend()
-plt.show()
+# z.plot()
+# plt.ylabel('Price in Dollars')
+# plt.title('Average Price of Residential Homes per Year')
+# plt.legend()
+# plt.show()
 
 # X-Coordinates for Graphs
-xcoords = df['Year'].tolist()
-xcoords = set(xcoords)
-cleaned_x = [x for x in xcoords if str(x) != 'nan']
+def x_coor():
+    xcoords = df['Year'].tolist()
+    xcoords = set(xcoords)
+    cleaned_x = [x for x in xcoords if str(x) != 'nan']
+    return cleaned_x
 
 # Function to analyze data by zipcode
 
@@ -72,6 +74,7 @@ def zipFunc(zip):
         zipcoords = filtered_data_zip.tolist()
         zipcoords = set(zipcoords)
         cleaned_zip = [x for x in zipcoords if str(x) != 'nan']
+        return cleaned_zip
 
 # Function to analyze data by street
 
@@ -90,6 +93,7 @@ def streetFunc(street, prefix=' '):
         streetcoords = filtered_data.tolist()
         streetcoords = set(streetcoords)
         cleaned_street = [x for x in streetcoords if str(x) != 'nan']
+        return cleaned_street
     else:
         filtered_data_prefix = df[df["Street_Prefix"]==prefix.upper()]
         filtered_data_pre = filtered_data_prefix[filtered_data_prefix["Street_Name"]==input_street]
@@ -104,6 +108,7 @@ def streetFunc(street, prefix=' '):
         prefixcoords = filtered_data.tolist()
         prefixcoords = set(prefixcoords)
         cleaned_prefix = [x for x in prefixcoords if str(x) != 'nan']
+        return cleaned_prefix
 
 # Function to analyze data by city
 
@@ -121,3 +126,4 @@ def cityFunc(city):
         citycoords = filtered_data_city.tolist()
         citycoords = set(citycoords)
         cleaned_city = [x for x in citycoords if str(x) != 'nan']
+        return cleaned_city
