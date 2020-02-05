@@ -27,7 +27,7 @@ l2.grid(row=1, column=0)
 l3=Label(window, text="Street: (No Dr., Rd., Ln., etc.)")
 l3.grid(row=2, column=0)
 
-l4=Label(window, text="Street Prefix: (Only use direction i.e. W, N, SE)")
+l4=Label(window, text="Street Prefix: (Only use direction i.e. W, N, SE or leave blank)")
 l4.grid(row=3, column=0)
 
 city_text=StringVar()

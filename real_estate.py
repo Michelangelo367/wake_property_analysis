@@ -51,6 +51,11 @@ plt.title('Average Price of Residential Homes per Year')
 plt.legend()
 plt.show()
 
+# X-Coordinates for Graphs
+xcoords = df['Year'].tolist()
+xcoords = set(xcoords)
+cleaned_x = [x for x in xcoords if str(x) != 'nan']
+
 # Function to analyze data by zipcode
 
 def zipFunc(zip):
@@ -64,6 +69,9 @@ def zipFunc(zip):
         plt.title('Average Price of Residential Homes per Year in ' + str(input_zip))
         plt.legend()
         plt.show()
+        zipcoords = filtered_data_zip.tolist()
+        zipcoords = set(zipcoords)
+        cleaned_zip = [x for x in zipcoords if str(x) != 'nan']
 
 # Function to analyze data by street
 
@@ -79,6 +87,9 @@ def streetFunc(street, prefix=' '):
         plt.title('Average Price of Residential Homes per Year in ' + input_street.title())
         plt.legend()
         plt.show()
+        streetcoords = filtered_data.tolist()
+        streetcoords = set(streetcoords)
+        cleaned_street = [x for x in streetcoords if str(x) != 'nan']
     else:
         filtered_data_prefix = df[df["Street_Prefix"]==prefix.upper()]
         filtered_data_pre = filtered_data_prefix[filtered_data_prefix["Street_Name"]==input_street]
@@ -90,6 +101,9 @@ def streetFunc(street, prefix=' '):
         plt.title('Average Price of Residential Homes per Year in ' + prefix.upper() + ' ' + input_street.title())
         plt.legend()
         plt.show()
+        prefixcoords = filtered_data.tolist()
+        prefixcoords = set(prefixcoords)
+        cleaned_prefix = [x for x in prefixcoords if str(x) != 'nan']
 
 # Function to analyze data by city
 
@@ -104,3 +118,6 @@ def cityFunc(city):
         plt.title('Average Price of Residential Homes per Year in ' + input_city.title())
         plt.legend()
         plt.show()
+        citycoords = filtered_data.tolist()
+        citycoords = set(citycoords)
+        cleaned_city = [x for x in citycoords if str(x) != 'nan']
