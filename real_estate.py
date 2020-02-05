@@ -33,77 +33,97 @@ df['Total_Assessed_Valuation'] = df['Assessed_Building_Value'] + df['Assessed_La
 df['Year'] = df['Total_Sale_Date'].dt.year
 df = df[df["Land_classification"]=='R']
 year = df.groupby(['Year'])
-print(year['Total_Assessed_Valuation'].mean())
+# print(year['Total_Assessed_Valuation'].mean())
 
-# Chart of initial data
+# # Chart of initial data
 y = year['Total_Sale_Date'].count()
 z = year['Total_sale_Price'].mean()
 
-y.plot()
-plt.show()
+# y.plot()
+# plt.ylabel('Price in Dollars')
+# plt.title('Number of Residential Home Sales per Year')
+# plt.legend()
+# plt.show()
 
-z.plot()
-plt.show()
+# z.plot()
+# plt.ylabel('Price in Dollars')
+# plt.title('Average Price of Residential Homes per Year')
+# plt.legend()
+# plt.show()
+
+# X-Coordinates for Graphs
+def x_coor():
+    xcoords = df['Year'].tolist()
+    xcoords = set(xcoords)
+    cleaned_x = [x for x in xcoords if str(x) != 'nan']
+    return cleaned_x
 
 # Function to analyze data by zipcode
 
-input_yn = input('Would you like to view data by zipcode? (Y/N)').upper()
-
-if input_yn == 'Y' or input_yn == 'YES':
-    input_zip = int(input('Please enter the zipcode you would like to receive data for:'))
-    filtered_data_zip_pre = df[df['PHYSICAL_ZIP_CODE']==input_zip]
-    filtered_data_zip_pre = filtered_data_zip_pre.groupby('Year')
-    filtered_data_zip = filtered_data_zip_pre['Total_sale_Price'].mean()
-    filtered_data_zip.plot()
-    z.plot()
-    plt.show()
-    
-    # zip_assess = input('Would you like to view home price vs. assessed home price? (Y/N) ').upper()
-    # if zip_assess == 'Y' or zip_assess == 'YES':
-    #     zip_assess_price = filtered_data_zip_pre['Total_Assessed_Valuation'].mean()
-    #     print('Total Sale Price / Total Valuation Price: (Over 1 means the owner is paying above valuation, under 1 means the owner is paying below valuation.) ')
-    #     zip_chart = filtered_data_zip_pre['Total_sale_Price'].mean() / zip_assess_price
-    #     print(zip_chart)
-    #     print('YOY Change is: ')
-    #     print(zip_chart.pct_change(periods=2))
-else:
-    pass
+def zipFunc(zip):
+        input_zip = int(zip)
+        filtered_data_zip_pre = df[df['PHYSICAL_ZIP_CODE']==input_zip]
+        filtered_data_zip_pre = filtered_data_zip_pre.groupby('Year')
+        filtered_data_zip = filtered_data_zip_pre['Total_sale_Price'].mean()
+        filtered_data_zip.plot(label='Price by Zip Code')
+        z.plot(label = 'Price by County')
+        plt.ylabel('Price in Dollars')
+        plt.title('Average Price of Residential Homes per Year in ' + str(input_zip))
+        plt.legend()
+        plt.show()
+        zipcoords = filtered_data_zip.tolist()
+        zipcoords = set(zipcoords)
+        cleaned_zip = [x for x in zipcoords if str(x) != 'nan']
+        return cleaned_zip
 
 # Function to analyze data by street
 
-street_yn = input('Would you like to view data by street? (Y/N) ').upper()
-
-if street_yn == 'Y' or street_yn == 'YES':
-    prefix_yn = input('Is there a street prefix? (Y/N ) ').upper()
-    if prefix_yn == 'Y' or prefix_yn == 'YES':
-        input_prefix = input('Please enter the street prefix you would like to receive data for: (W, N, SE, etc.) ').upper()
-        filtered_data_prefix = df[df["Street_Prefix"]==input_prefix]
+def streetFunc(street, prefix=' '):
+    input_street = street.upper()
+    if prefix == ' ':
+        filtered_data_pre = df[df["Street_Name"]==input_street]
+        filtered_data_pre = filtered_data_pre.groupby('Year')
+        filtered_data = filtered_data_pre['Total_sale_Price'].mean()
+        filtered_data.plot()
+        z.plot(label='Price by Street')
+        plt.ylabel('Price in Dollars')
+        plt.title('Average Price of Residential Homes per Year in ' + input_street.title())
+        plt.legend()
+        plt.show()
+        streetcoords = filtered_data.tolist()
+        streetcoords = set(streetcoords)
+        cleaned_street = [x for x in streetcoords if str(x) != 'nan']
+        return cleaned_street
     else:
-        pass
-    input_street = input('Please enter the street you would like to receive data for: ').upper()
-    filtered_data_pre = df[df["Street_Name"]==input_street]
-    filtered_data_pre = filtered_data_pre.groupby('Year')
-    filtered_data = filtered_data_pre['Total_sale_Price'].mean()
-    filtered_data.plot()
-    z.plot()
-    plt.show()
-    
-
-else:
-    pass
+        filtered_data_prefix = df[df["Street_Prefix"]==prefix.upper()]
+        filtered_data_pre = filtered_data_prefix[filtered_data_prefix["Street_Name"]==input_street]
+        filtered_data_pre = filtered_data_pre.groupby('Year')
+        filtered_data = filtered_data_pre['Total_sale_Price'].mean()
+        filtered_data.plot(label='Price by Street')
+        z.plot(label = 'Price by County')
+        plt.ylabel('Price in Dollars')
+        plt.title('Average Price of Residential Homes per Year in ' + prefix.upper() + ' ' + input_street.title())
+        plt.legend()
+        plt.show()
+        prefixcoords = filtered_data.tolist()
+        prefixcoords = set(prefixcoords)
+        cleaned_prefix = [x for x in prefixcoords if str(x) != 'nan']
+        return cleaned_prefix
 
 # Function to analyze data by city
 
-city_yn = input('Would you like to view data by city? (Y/N)').upper()
-
-if city_yn == 'Y' or input_yn == 'YES':
-    input_city = input('Please enter the city you would like to receive data for:').upper()
-    filtered_data_city_pre = df[df['PHYSICAL_CITY']==input_city]
-    filtered_data_city_pre = filtered_data_city_pre.groupby('Year')
-    filtered_data_city = filtered_data_city_pre['Total_sale_Price'].mean()
-    filtered_data_city.plot()
-    z.plot()
-    plt.show()
-
-else:
-    pass
+def cityFunc(city):
+        input_city = city.upper()
+        filtered_data_city_pre = df[df['PHYSICAL_CITY']==input_city]
+        filtered_data_city_pre = filtered_data_city_pre.groupby('Year')
+        filtered_data_city = filtered_data_city_pre['Total_sale_Price'].mean()
+        filtered_data_city.plot(label="City Price")
+        z.plot(label = 'Price by County')
+        plt.ylabel('Price in Dollars')
+        plt.title('Average Price of Residential Homes per Year in ' + input_city.title())
+        plt.legend()
+        plt.show()
+        citycoords = filtered_data_city.tolist()
+        citycoords = set(citycoords)
+        cleaned_city = [x for x in citycoords if str(x) != 'nan']
+        return cleaned_city
